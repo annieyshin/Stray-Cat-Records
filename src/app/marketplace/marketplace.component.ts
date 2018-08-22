@@ -26,6 +26,7 @@ export class MarketplaceComponent implements OnInit {
   // Here, we're redefining the component's existing albums property as the result of our new service's getAlbums() method (which returns the Albums array in our mock-albums.ts file).
 
   goToDetailPage(clickedAlbum: Album) {
+    this.router.navigate(['albums', clickedAlbum.$key]);
   };
 
 

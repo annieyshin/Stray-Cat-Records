@@ -1,36 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from '../album.model';
 import { Router } from '@angular/router';
+import { AlbumService } from '../album.service';
 
 @Component({
   selector: 'app-marketplace',
   templateUrl: './marketplace.component.html',
-  styleUrls: ['./marketplace.component.css']
+  styleUrls: ['./marketplace.component.css'],
+  providers: [AlbumService]
 })
 export class MarketplaceComponent implements OnInit {
 
-  albums: Album[] = [
-  new Album("Pulse", "Pink Floyd",
-      "A live  album by the English progressive rock band originally released in 1995, on the label EMI in the United Kingdom.", 1),
-  new Album("Funhouse", "The Stooges",
-      "The second  album from the American rock band, released in 1970 by Elektra Records.", 2),
-  new Album("Twilight of the Thunder God", "Amon Amarth",
-      "Seventh album by the Swedish band, released in 2008, based on Thor's battle with the serpent Jörmungandr.", 3),
-  new Album("Dilate", "Ani DiFranco",
-      "Her highest-selling and most acclaimed album, released in 1996.", 4),
-  new Album("Chopin - Complete Nocturnes", "Brigitte Engerer",
-      "Released in 2010, this is Engerer's own rendition of the classical composer Chopin.", 5),
-  new Album("Axis Bold As Love", "The Jimi Hendrix Experience",
-      "Second studio album by the English-American band, released in 1967.", 6)
-];
+  albums: Album[];
 
-   constructor(private router: Router){}
+   constructor(private router: Router, private albumService: AlbumService) {}
+
+   // Just like the Router already present, this ensures all new instances of MarketplaceComponent also have an instance of AlbumService, accessible by calling this.albumService anywhere in the MarketplaceComponent class.
+
 
   ngOnInit() {
+    this.albums = this.albumService.getAlbums();
   }
+
+  // Here, we're redefining the component's existing albums property as the result of our new service's getAlbums() method (which returns the Albums array in our mock-albums.ts file).
 
   goToDetailPage(clickedAlbum: Album) {
     this.router.navigate(['albums', clickedAlbum.id]);
   };
+  // When triggered, this method will gather the router instance provided in the constructor and call the built-in navigate() method on it, providing an array as an argument. The array contains the string 'albums' and clickedAlbum.id.
+  //
+  // These arguments are used to construct the URL to our route. 'albums' refers to the first portion of the route's path. clickedAlbum.id refers to the dynamic segment of the path. If clickedAlbum.id is 37, this would create a route path of albums/37.
 
 }

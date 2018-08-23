@@ -11,8 +11,8 @@ import { FirebaseListObservable } from 'angularfire2/database';
   providers: [AlbumService]
 })
 export class MarketplaceComponent implements OnInit {
-
- albums: FirebaseListObservable<any[]>;
+  albums: FirebaseListObservable<any[]>;
+  currentRoute: string = this.router.url;
 
    constructor(private router: Router, private albumService: AlbumService) {}
 
@@ -25,7 +25,7 @@ export class MarketplaceComponent implements OnInit {
 
   // Here, we're redefining the component's existing albums property as the result of our new service's getAlbums() method (which returns the Albums array in our mock-albums.ts file).
 
-  goToDetailPage(clickedAlbum: Album) {
+  goToDetailPage(clickedAlbum) {
     this.router.navigate(['albums', clickedAlbum.$key]);
   };
 

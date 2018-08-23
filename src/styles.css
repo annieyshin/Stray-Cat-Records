@@ -9,3 +9,10 @@
   background-color: #f5f5f5;
   padding: 15px;
 }
+
+body {
+  background-color: lightgreen;
+  outline: 4px groove red;
+  padding: 10px;
+
+}

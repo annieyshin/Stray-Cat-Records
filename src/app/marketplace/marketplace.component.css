@@ -1,0 +1,9 @@
+.panel {
+  outline: 2px;
+  border-style: dotted;
+  margin: 5px;
+  padding-left: 35px;
+  border-radius: 0px 20px 20px 20px;
+  box-shadow: inset  5px 5px 5px #ff6347, inset 5px 5px 5px #ffdab9, inset 20px 5px 5px 5px #e0e6b0;
+  color: brown;
+}

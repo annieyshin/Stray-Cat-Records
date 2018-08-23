@@ -36,11 +36,23 @@ export class AlbumService {
   return this.database.object('albums/' + albumId);
   }
 
-  // Notice albumId is now a string, not a number. Firebase keys are strings.
+  updateAlbum(localUpdatedAlbum){
+    var albumEntryInFirebase = this.getAlbumById(localUpdatedAlbum.$key);
+    albumEntryInFirebase.update({title: localUpdatedAlbum.title,
+                                artist: localUpdatedAlbum.artist,
+                                description: localUpdatedAlbum.description});
+  }
+
+  // updateAlbum() takes the local copy of the Album as an argument. Remember, this local version of Album has been edited with our two-way data binding edit form.
   //
-  // Additionally, we're now calling this.database.object() instead of .list(). This is because we're requesting only a single object from Firebase, not an entire list.
+  // It calls the existing getAlbumById() method to locate the Firebase entry corresponding to this Album. We assign this Firebase entry to the variable albumEntryInFirebase.
   //
-  // We're also including albumId as an argument to the object() method. This is because we need to tell Firebase where to look for our object. Remember, each database entry is located under its key. All entries are also nested in a larger albums table. Therefore we specify "albums/" as the location. This prompts Firebase to look in our Albums list, for the Album residing under whatever key we provide this method.
+  // getAlbumById() requires the Firebase-assigned $key as an argument. So we call localUpdatedAlbum.$key within the argument to getAlbumById().
+  //
+  // After the database entry has been located, we call AngularFire's built in update() method on albumEntryInFirebase.
+  //
+  // We update() the Album's new properties. These are formatted as key-value pairs. The key in each refers to the property in Firebase we're updating. The value of each contains the Album's local, updated properties.
+
 
 
 }
